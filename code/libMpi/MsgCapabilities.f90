@@ -74,16 +74,16 @@ CONTAINS
         CHARACTER( len=132 ) :: MCT_getStr
         IF( MPI_DATATYPE_NULL == MCT_mpiDatatype ) MCT_mpiDatatype = self%getMpiDatatype()
         WRITE( MCT_getStr, &
-            '("MCT:: rank=", I0, " size=", I0, " datatype=", I0, " RAM free:", I0, " total:", I0, " cores:", I0)' ) &
-            self%mRank, self%mSize, MCT_mpiDatatype, self%freeRam, self%totalRam, self%cores
+            '("MCT:: rank=", I0, " size=", I0, " datatype=", I0, " RAM free:", I0, " total:", I0, " cores:", I0, 1X, A)' ) &
+            self%mRank, self%mSize, MCT_mpiDatatype, self%freeRam, self%totalRam, self%cores, trim( self%hostname )
     END FUNCTION
 
     !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_constructor() RESULT( self )
         TYPE( MsgCapabilitiesType ) :: self
         INTEGER :: iErr
-        INTEGER :: hostnameLength
-        CALL MPI_Get_processor_name( self%hostname, hostnameLength, iErr )
+!        INTEGER :: hostnameLength
+!        CALL MPI_Get_processor_name( self%hostname, hostnameLength, iErr )
         CALL MPI_COMM_RANK( MPI_COMM_WORLD, self%mRank, iErr )
         CALL MPI_COMM_SIZE( MPI_COMM_WORLD, self%mSize, iErr )
         CALL self%MCT_loadSysInfo()
@@ -95,10 +95,12 @@ CONTAINS
         INTEGER :: freeRam
         INTEGER :: totalRam
         INTEGER :: cores
-        CALL C_loadSysInfo( freeRam, totalRam, cores )
-        self%freeRam = freeRam
-        self%totalRam = totalRam
-        self%cores = cores
+        CHARACTER( len=MPI_MAX_PROCESSOR_NAME ) :: hostname
+        CALL C_loadSysInfo( self%freeRam, self%totalRam, self%cores, self%hostname )
+!        self%freeRam = freeRam
+!        self%totalRam = totalRam
+!        self%cores = cores
+!        self%hostname = trim( hostname )
     END SUBROUTINE
 END MODULE
 !--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!

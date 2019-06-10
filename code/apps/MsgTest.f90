@@ -1,4 +1,5 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MsgTest
     USE :: MsgBase
     USE :: mpi
@@ -8,7 +9,6 @@ MODULE MsgTest
     CHARACTER( len=* ), PARAMETER :: MXT_msgName = 'Test'
     INTEGER, PARAMETER :: MXT_msgTag = 37
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     TYPE, EXTENDS( MsgBaseType ) :: MsgTestType
         REAL :: myPi = 3.14159
     CONTAINS
@@ -25,7 +25,6 @@ MODULE MsgTest
 
 CONTAINS
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MXT_constructor() RESULT( self )
         TYPE( MsgTestType ) :: self
         INTEGER :: mpiDatatype
@@ -33,21 +32,18 @@ CONTAINS
         self%myPi = 2.718281828
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MXT_getMsgTag( self ) RESULT( response )
         CLASS( MsgTestType ) :: self
         INTEGER :: response
         response = MXT_msgTag
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MXT_getName( self ) RESULT( iName )
         CLASS( MsgTestType ), INTENT( in ) :: self
         CHARACTER( len=132 ) :: iName
         iName = MXT_msgName
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MXT_loadMpiDatatype( self )
         CLASS( MsgTestType ) :: self
         TYPE( MpiAssistType ) :: maType
@@ -57,7 +53,6 @@ CONTAINS
         MXT_mpiDatatype = maType%MA_getType()
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MXT_getMpiDatatype( self )
         CLASS( MsgTestType ) :: self
         INTEGER :: MXT_getMpiDatatype
@@ -65,7 +60,6 @@ CONTAINS
         MXT_getMpiDatatype = MXT_mpiDatatype
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MXT_getStr( self )
         CLASS( MsgTestType ), INTENT( in ) :: self
         CHARACTER( len=132 ) :: MXT_getStr
@@ -73,4 +67,3 @@ CONTAINS
         WRITE( MXT_getStr, '("MXT:: myPi=", F5.3, " datatype=", I0)' ) self%myPi, MXT_mpiDatatype
     END FUNCTION
 END MODULE
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|

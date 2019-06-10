@@ -1,8 +1,9 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MpiIocForAppCallback
     USE :: MsgBase
     IMPLICIT NONE
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+
     TYPE, ABSTRACT :: MpiIocForAppCallbackType
     CONTAINS
         PROCEDURE( jRxMessage ), DEFERRED :: receiveMsg
@@ -25,4 +26,3 @@ MODULE MpiIocForAppCallback
         END SUBROUTINE
     END INTERFACE
 END MODULE
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|

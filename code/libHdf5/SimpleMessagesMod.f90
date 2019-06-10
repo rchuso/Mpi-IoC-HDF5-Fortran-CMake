@@ -1,4 +1,5 @@
-!--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
+! Written by Rand Huso
+
 ! Display messages that may be picked-up by the UI for proper display
 ! This includes progress messages, ERROR, WARNING, INFO, and DEBUG messages as well as simple text lines
 
@@ -18,7 +19,7 @@ MODULE SimpleMessagesMod
 
     INTEGER( kind( SM_TYPE )) :: SM_CurrentLevel = SM_INFO
 #ifdef NotWorkingYet
-    LOGICAL :: SM_showBacktrace = .True.
+    LOGICAL :: SM_showBacktrace = .True. ! GNU intrinsic estension to get backtrace information without killing the process via dump
 #endif
 
     CHARACTER( LEN=* ), PARAMETER, PRIVATE :: SM_PREFIX_PERCENT = '%-P-'
@@ -29,7 +30,6 @@ MODULE SimpleMessagesMod
 
 CONTAINS
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     SUBROUTINE SM_logMessage( msgLevel, msg )
         INTEGER( kind( SM_TYPE )), INTENT( IN ), VALUE :: msgLevel
         CHARACTER( LEN=* ), INTENT( IN ) :: msg
@@ -43,7 +43,6 @@ CONTAINS
             END SELECT
             FLUSH( Output_Unit )
 #ifdef NotWorkingYet
-            PRINT *, 'XXXXXXXXXXXXXXXXXXXX Checking for backtrace() XXXXXXXXXXXXXXXXXXXXXXX'
             IF( SM_showBacktrace .and. ( msgLevel == SM_ERROR )) THEN
                 WRITE( Output_Unit, '(A)' ) '|--------+---------+---------+---------+---------+---------+---------+---------+-|'
                 WRITE( Output_Unit, '(A)' ) 'SM_BACKTRACE:'
@@ -54,7 +53,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     SUBROUTINE SM_showProgress( percentCompleted, msg )
         IMPLICIT NONE
         INTEGER :: percentCompleted
@@ -71,4 +69,3 @@ CONTAINS
         END IF
     END SUBROUTINE
 END MODULE
-!--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!

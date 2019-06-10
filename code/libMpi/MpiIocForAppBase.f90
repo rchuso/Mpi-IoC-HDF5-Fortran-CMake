@@ -1,4 +1,5 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MpiIocForAppBase
     USE :: mpi
     USE :: MsgBase
@@ -7,12 +8,10 @@ MODULE MpiIocForAppBase
     USE :: MpiIocForLayer
     IMPLICIT NONE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     TYPE :: CapabilitiesList
         CLASS( MsgCapabilitiesType ), POINTER :: capability => Null()
     END TYPE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     TYPE, ABSTRACT, EXTENDS( MpiIocForAppCallbackType ) :: MpiIocForAppBaseType
         TYPE( MpiIocForLayerType ) :: mpiLayer
         INTEGER :: capabilitiesCount = 0
@@ -56,7 +55,6 @@ MODULE MpiIocForAppBase
 
 CONTAINS
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_showCapabilities( self )
         CLASS( MpiIocForAppBaseType ), INTENT( inout ) :: self
         INTEGER :: i
@@ -66,7 +64,6 @@ CONTAINS
         END DO
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_storeCapabilities( self, message )
         CLASS( MpiIocForAppBaseType ), INTENT( inout ) :: self
         CLASS( MsgBaseType ), INTENT( inout ) :: message
@@ -87,28 +84,24 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_loadType( self, message )
         CLASS( MpiIocForAppBaseType ) :: self
         CLASS( MsgBaseType ) :: message
         CALL self%mpiLayer%loadType( message )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MIFABT_rank( self ) RESULT( myRank )
         CLASS( MpiIocForAppBaseType ) :: self
         INTEGER :: myRank
         myRank = self%mpiLayer%mRank
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MIFABT_size( self ) RESULT( mySize )
         CLASS( MpiIocForAppBaseType ) :: self
         INTEGER :: mySize
         mySize = self%mpiLayer%mSize
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_initMpiLayer( self, ptrSelf )
         CLASS( MpiIocForAppBaseType ) :: self
         CLASS( MpiIocForAppCallbackType ), POINTER :: ptrSelf
@@ -116,13 +109,11 @@ CONTAINS
         CALL self%loadUserTypes()
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_start( self )
         CLASS( MpiIocForAppBaseType ) :: self
         CALL self%mpiLayer%start()
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_txMessage( self, message, destinationNode )
         CLASS( MpiIocForAppBaseType ), INTENT( inout ) :: self
         CLASS( MsgBaseType ), INTENT( inout ) :: message
@@ -130,7 +121,6 @@ CONTAINS
         CALL self%mpiLayer%txMessage( message, destinationNode )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_txAllMessage( self, message )
         CLASS( MpiIocForAppBaseType ), INTENT( inout ) :: self
         CLASS( MsgBaseType ), INTENT( inout ) :: message
@@ -141,10 +131,8 @@ CONTAINS
         END DO
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFABT_stop( self )
         CLASS( MpiIocForAppBaseType ) :: self
         CALL self%mpiLayer%txTerminate()
     END SUBROUTINE
 END MODULE
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|

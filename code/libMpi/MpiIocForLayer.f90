@@ -1,4 +1,5 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MpiIocForLayer
     USE :: MpiIocForAppCallback
     USE :: MPI
@@ -8,7 +9,6 @@ MODULE MpiIocForLayer
     USE :: MpiIocForBinaryTree
     IMPLICIT NONE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     TYPE :: MpiIocForLayerType
         INTEGER :: mRank = 0
         INTEGER :: mSize = 0
@@ -33,7 +33,6 @@ MODULE MpiIocForLayer
     END INTERFACE
 CONTAINS
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MIFLT_constructor( appObject ) RESULT( self )
         TYPE( MpiIocForLayerType ) :: self
         CLASS( MpiIocForAppCallbackType ), POINTER :: appObject
@@ -42,7 +41,6 @@ CONTAINS
         CALL self%MIFLT_loadInitialObjects()
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_initMpi( self )
         CLASS( MpiIocForLayerType ) :: self
         INTEGER :: iErr
@@ -57,7 +55,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_loadType( self, message )
         CLASS( MpiIocForLayerType ) :: self
         CLASS( MsgBaseType ) :: message
@@ -68,7 +65,6 @@ CONTAINS
         CALL self%binaryTree%addItem( message, tag )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_loadInitialObjects( self )
         CLASS( MpiIocForLayerType ) :: self
         BLOCK
@@ -82,7 +78,6 @@ CONTAINS
         END BLOCK
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_start( self )
         CLASS( MpiIocForLayerType ) :: self
         CALL self%MIFLT_sendCapabilities()
@@ -92,7 +87,6 @@ CONTAINS
         CALL self%MIFLT_finalizeMpi()
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_txMessage( self, message, destination)
         CLASS( MpiIocForLayerType ) :: self
         CLASS( MsgBaseType ), INTENT( inout ) :: message
@@ -109,7 +103,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_txTerminate( self )
         CLASS( MpiIocForLayerType ) :: self
         TYPE( MsgTerminateType ) :: terminate
@@ -119,7 +112,6 @@ CONTAINS
         END DO
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_sendCapabilities( self )
         CLASS( MpiIocForLayerType ) :: self
         TYPE( MsgCapabilitiesType ) :: capabilities
@@ -127,7 +119,6 @@ CONTAINS
         CALL self%txMessage( capabilities, 0 ) ! these all go to rank=0
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_rxMessage( self )
         CLASS( MpiIocForLayerType ) :: self
         INTEGER :: iErr
@@ -153,7 +144,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_getStoredObject( self, tag, storedObjectPtr )
         CLASS( MpiIocForLayerType ) :: self
         INTEGER, INTENT( in ) :: tag
@@ -161,11 +151,9 @@ CONTAINS
         CALL self%binaryTree%getItem( storedObjectPtr, tag )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MIFLT_finalizeMpi( self )
         CLASS( MpiIocForLayerType ) :: self
         INTEGER :: iErr
         CALL MPI_FINALIZE( iErr )
     END SUBROUTINE
 END MODULE
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|

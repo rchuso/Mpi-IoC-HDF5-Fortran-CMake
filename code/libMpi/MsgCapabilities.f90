@@ -1,4 +1,5 @@
-!--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
+! Written by Rand Huso
+
 MODULE MsgCapabilities
     USE :: mpi
     USE :: MsgBase
@@ -30,14 +31,12 @@ MODULE MsgCapabilities
     END INTERFACE
 
 CONTAINS
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_getName( self ) RESULT( iName )
         CLASS( MsgCapabilitiesType ), INTENT( in ) :: self
         CHARACTER( len=132 ) :: iName
         iName = MCT_msgName
     END FUNCTION
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_getMpiDatatype( self )
         CLASS( MsgCapabilitiesType ) :: self
         INTEGER :: MCT_getMpiDatatype
@@ -45,14 +44,12 @@ CONTAINS
         MCT_getMpiDatatype = MCT_mpiDatatype
     END FUNCTION
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_getTag( self ) RESULT( response )
         CLASS( MsgCapabilitiesType ) :: self
         INTEGER :: response
         response = MCT_msgTag
     END FUNCTION
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     SUBROUTINE MCT_loadMpiDatatype( self )
         CLASS( MsgCapabilitiesType ) :: self
         TYPE( MpiAssistType ) :: maType
@@ -68,7 +65,6 @@ CONTAINS
         MCT_mpiDatatype = maType%MA_getType()
     END SUBROUTINE
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_getStr( self )
         CLASS( MsgCapabilitiesType ), INTENT( in ) :: self
         CHARACTER( len=132 ) :: MCT_getStr
@@ -78,18 +74,14 @@ CONTAINS
             self%mRank, self%mSize, MCT_mpiDatatype, self%freeRam, self%totalRam, self%cores, trim( self%hostname )
     END FUNCTION
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     FUNCTION MCT_constructor() RESULT( self )
         TYPE( MsgCapabilitiesType ) :: self
         INTEGER :: iErr
-!        INTEGER :: hostnameLength
-!        CALL MPI_Get_processor_name( self%hostname, hostnameLength, iErr )
         CALL MPI_COMM_RANK( MPI_COMM_WORLD, self%mRank, iErr )
         CALL MPI_COMM_SIZE( MPI_COMM_WORLD, self%mSize, iErr )
         CALL self%MCT_loadSysInfo()
     END FUNCTION
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     SUBROUTINE MCT_loadSysInfo( self )
         CLASS( MsgCapabilitiesType ), INTENT( inout ) :: self
         INTEGER :: freeRam
@@ -97,10 +89,5 @@ CONTAINS
         INTEGER :: cores
         CHARACTER( len=MPI_MAX_PROCESSOR_NAME ) :: hostname
         CALL C_loadSysInfo( self%freeRam, self%totalRam, self%cores, self%hostname )
-!        self%freeRam = freeRam
-!        self%totalRam = totalRam
-!        self%cores = cores
-!        self%hostname = trim( hostname )
     END SUBROUTINE
 END MODULE
-!--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!

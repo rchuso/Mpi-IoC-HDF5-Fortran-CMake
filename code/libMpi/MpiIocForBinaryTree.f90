@@ -1,4 +1,5 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MpiIocForBinaryTree
     USE :: MsgBase
 
@@ -22,7 +23,6 @@ MODULE MpiIocForBinaryTree
     END TYPE
 
 CONTAINS
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     RECURSIVE SUBROUTINE getItemAt( self, item, node, tag )
         CLASS( MpiIocForBinaryTreeType ), INTENT( inout ) :: self
         CLASS( TreeContainerType ), INTENT( inout ) :: node
@@ -41,7 +41,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE getItem( self, item, tag )
         CLASS( MpiIocForBinaryTreeType ), INTENT( inout ) :: self
         INTEGER, INTENT( in ) :: tag
@@ -51,7 +50,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     RECURSIVE SUBROUTINE addItemLeaf( self, node, item, tag )
         CLASS( MpiIocForBinaryTreeType ), INTENT( inout ) :: self
         CLASS( TreeContainerType ), INTENT( inout ) :: node
@@ -78,7 +76,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE addItem( self, item, tag )
         CLASS( MpiIocForBinaryTreeType ), INTENT( inout ) :: self
         CLASS( MsgBaseType ), INTENT( in ) :: item
@@ -92,7 +89,6 @@ CONTAINS
         END IF
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     RECURSIVE SUBROUTINE dumpTreeLine( self, item )
         CLASS( MpiIocForBinaryTreeType ), INTENT( in ) :: self
         CLASS( TreeContainerType ), INTENT( in ) :: item
@@ -101,7 +97,6 @@ CONTAINS
         IF( allocated( item%less )) CALL self%dumpTreeLine( item%less )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE dumpTree( self )
         CLASS( MpiIocForBinaryTreeType ), INTENT( inout ) :: self
         PRINT *, 'MpiIocForBinaryTree::dumpTree'

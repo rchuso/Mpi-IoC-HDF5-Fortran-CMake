@@ -1,4 +1,5 @@
-!--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
+! Written by Rand Huso
+
 MODULE MpiAssist
     USE :: mpi
     IMPLICIT NONE
@@ -20,7 +21,6 @@ MODULE MpiAssist
     END INTERFACE
 CONTAINS
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MA_constructor( elements ) RESULT( self )
         TYPE( MpiAssistType ) :: self
         INTEGER, INTENT( in ) :: elements
@@ -31,7 +31,6 @@ CONTAINS
         ALLOCATE( self%MA_type( self%MA_elements ), SOURCE=0)
     END FUNCTION
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MA_destructor( self )
         TYPE( MpiAssistType ) :: self
         IF( allocated( self%MA_address )) DEALLOCATE( self%MA_address )
@@ -39,7 +38,6 @@ CONTAINS
         IF( allocated( self%MA_type )) DEALLOCATE( self%MA_type )
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     SUBROUTINE MA_loadComponent( self, thisItem, itemNumber, itemCount, itemType )
         CLASS( MpiAssistType ), INTENT( inout ) :: self
         CLASS( * ), INTENT( in ) :: thisItem
@@ -53,7 +51,6 @@ CONTAINS
         self%MA_type( itemNumber ) = itemType
     END SUBROUTINE
 
-    !----|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-|
     FUNCTION MA_getType( self )
         CLASS( MpiAssistType ), INTENT( inout ) :: self
         INTEGER :: MA_getType

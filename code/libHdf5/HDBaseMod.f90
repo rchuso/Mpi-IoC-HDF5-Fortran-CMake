@@ -1,3 +1,4 @@
+! Written by Rand Huso
 
 MODULE HDBaseMod
     USE, INTRINSIC :: iso_fortran_env ! , ONLY : output_unit, error_unit, int64, int32, real64, real32

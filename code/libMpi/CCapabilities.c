@@ -2,12 +2,14 @@
 #include <sys/sysinfo.h>
 #include <unistd.h>
 
+// Written by Rand Huso
+
 /**
  * This routine scrapes the meminfo "file" of the proc to get the available memory
  */
 int getRamInKB(void) {
 	int response = -1;
-    FILE *meminfo = fopen( "/proc/meminfo", "r" );
+    FILE *meminfo = fopen( "/proc/meminfo", "r" ); // assuming a linux machine - and most clusters are linux anyway
     if( meminfo != NULL ) {
 		char line[256];
 		int value;

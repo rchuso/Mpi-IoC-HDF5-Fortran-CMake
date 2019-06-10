@@ -1,8 +1,3 @@
-# clear&&echo&&rm -rf CMakeCache.txt CMakeFiles Makefile&&echo&&cmake .&&echo&&make&&echo&&mpiexec -n 3 bin/CMakeForPlus&&echo
-# h5cc -showconfig
-# dpkg -l | grep hdf5
-# echo ${HDF5_ROOT}
-
 CMAKE_MINIMUM_REQUIRED( VERSION 3.10 )
 PROJECT( test C Fortran )
 
@@ -58,55 +53,3 @@ SET( CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/mod )
 INCLUDE_DIRECTORIES( ${HDF5_INCLUDE_DIRS} ${HDF5_Fortran_INCLUDE_DIRS} )
 
 ADD_SUBDIRECTORY( code )
-
-
-
-# me: extremely high intelligence
-#     +moderately low agreeableness (don't care about offending)
-#     +moderately low consciousness (think outside the box, break the rules)
-#     +highly sexually repressed
-#     +K strategist (r/K K=nurturing )
-
-
-
-#CMAKE_FORCE_Fortran_COMPILER( mpif90 ${CMAKE_Fortran_COMPILER_ID} )
-#CMAKE_FORCE_C_COMPILER( mpicc ${CMAKE_C_COMPILER_ID} )
-#MESSAGE( STATUS "    --> : ${}" )
-#GET_FILENAME_COMPONENT( Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME )
-#MESSAGE( STATUS "    --> :" ${} )
-#
-#INCLUDE( CMakeForceCompiler )
-#
-#SET( PACKAGE_VERSION 1.0 )
-#
-#
-#SET( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp )
-#
-#find_package(MPI REQUIRED)
-#
-#ADD_DEFINITIONS( ${MPI_Fortran_COMPILE_FLAGS} )
-#ADD_DEFINITIONS( -DOMPI_SKIP_MPICXX ) # something to do with c++ bindings for OpenMPI
-#
-#INCLUDE_DIRECTORIES( SYSTEM ${MPI_INCLUDE_PATH} )
-#INCLUDE_DIRECTORIES( ${MPI_Fortran_INCLUDE_PATH} )
-#
-#ADD_EXECUTABLE( main main.cpp )
-#
-#LINK_DIRECTORIES( ${MPI_Fortran_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( ${exe_name} otherlibs ${MPI_Fortran_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( my_mpi_target ${MPI_C_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( target gomp )
-#TARGET_LINK_LIBRARIES( main PRIVATE MPI::MPI_C )
-#
-#
-## Old way.
-##target_link_libraries(main
-## PRIVATE
-## ${MPI_C_LIBRARIES})
-#
-##target_include_directories(main
-## PRIVATE
-## ${MPI_C_INCLUDE_PATH}) 
-#
-#
-#

@@ -1,6 +1,7 @@
+! Written by Rand Huso
 
 MODULE HDMod
-    USE, INTRINSIC :: iso_fortran_env ! , ONLY : output_unit, error_unit, int64, int32, real64, real32
+    USE, INTRINSIC :: iso_fortran_env, ONLY : int64, int32, real64, real32
     USE :: HDBaseMod
     IMPLICIT NONE
 

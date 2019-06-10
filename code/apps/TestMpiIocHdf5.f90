@@ -1,4 +1,5 @@
-! Rand Huso - original guilty party. This is an example of writing an MPI application using basic Inversion of
+! Written by Rand Huso
+! This is an example of writing an MPI application using basic Inversion of
 ! Control (IoC) software pattern. The AppBase is in charge of the execution, and supplies objects (based on
 ! the MsgBase class) to this application when they are received at this node.
 ! Example application - Extend the AppBase, implement the three required methods.

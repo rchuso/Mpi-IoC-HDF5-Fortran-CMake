@@ -1,6 +1,8 @@
+! Written by Rand Huso
 
 SUBMODULE( HDMod ) HDModSub
 CONTAINS
+    ! templates or #define functions would be quite useful here
 
 !--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|--READ---|---INT---|---32----|-|
 

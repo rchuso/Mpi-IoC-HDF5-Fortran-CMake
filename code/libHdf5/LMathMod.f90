@@ -1,4 +1,5 @@
-!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-
+! Written by Rand Huso
+
 ! here's an example ( after the fact ): http://www.cs.mtu.edu/~shene/COURSES/cs201/NOTES/chap06/trigon.html
 MODULE LMathMod
     USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY : real32, real64

@@ -1,4 +1,5 @@
-!--------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
+! Written by Rand Huso
+
 MODULE MsgBase
     USE :: MpiAssist
     IMPLICIT NONE
@@ -35,7 +36,6 @@ MODULE MsgBase
     END INTERFACE
 CONTAINS
 
-    !----!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!---------!-!
     SUBROUTINE MBT_writeFormatted( self, unit, iotype, v_list, iostat, iomsg )
         !! iotype has a value as follows:
         !! (https://www.ibm.com/support/knowledgecenter/en/SS2MB5_14.1.0/com.ibm.xlf141.bg.doc/language_ref/uddtioprocedures.jsp)

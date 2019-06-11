@@ -1,4 +1,4 @@
-FROM ubuntu:18:04
+FROM ubuntu:18.04
 
 RUN apt-get update &&\
     apt-get -y install \
@@ -15,5 +15,5 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test &&\
     libhdf5-dev
 
 RUN git clone --depth=1 https://github.com/rchuso/Mpi-IoC-HDF5-Fortran-CMake.git
-WORKDIR /Mpi-IoC-HDF5-Fortran-CMake.git
+WORKDIR /Mpi-IoC-HDF5-Fortran-CMake
 CMD ["/bin/bash"]
